@@ -1,103 +1,123 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Container } from "@/components/site/container";
+import { Section } from "@/components/site/section";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      {/* Hero
+         Headline candidates considered:
+         1. "Business consulting and AI implementation for Sonoma County." (chosen — most direct)
+         2. "Local businesses deserve world-class infrastructure. We build it."
+         3. "Sonoma County business consulting, powered by working AI." */}
+      <section className="pt-24 sm:pt-32 lg:pt-40 pb-20 sm:pb-24">
+        <Container>
+          <p className="eyebrow mb-8">Sonoma County, California</p>
+          <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] leading-[1.02] tracking-[-0.02em] max-w-4xl">
+            Business consulting and AI implementation for Sonoma County.
+          </h1>
+          <p className="mt-10 max-w-2xl text-lg sm:text-xl text-foreground/75 leading-relaxed">
+            S-Tier Business Group develops local businesses through fundamental
+            strategy work and production AI infrastructure — making the most
+            capable tools available outside of enterprise.
+          </p>
+          <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-sm">
+            <Link
+              href="/services"
+              className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary"
+            >
+              Services
+            </Link>
+            <Link
+              href="/agent"
+              className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary"
+            >
+              The Agent
+            </Link>
+            <Link
+              href="/contact"
+              className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary"
+            >
+              Contact
+            </Link>
+          </div>
+        </Container>
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Three pillars */}
+      <Section bordered>
+        <p className="eyebrow mb-12">What we do</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10">
+          <PillarCard
+            href="/services"
+            eyebrow="01"
+            title="Consulting"
+            body="Foundational analysis and strategic work for local businesses. Process design, organizational fundamentals, profit-focused implementation."
+          />
+          <PillarCard
+            href="/agent"
+            eyebrow="02"
+            title="Agent"
+            body="A pay-per-use AI agent that captures your information, organizes it as it accumulates, and acts on your behalf when asked."
+          />
+          <PillarCard
+            href="/initiatives"
+            eyebrow="03"
+            title="Initiatives"
+            body="Active ventures we operate or invest in — currently AI-integrated work in traditional industries."
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </Section>
+
+      {/* Mission */}
+      <Section bordered>
+        <div className="max-w-3xl">
+          <p className="eyebrow mb-8">Mission</p>
+          <p className="font-serif text-2xl sm:text-3xl lg:text-4xl leading-[1.25] tracking-tight text-foreground">
+            Help develop business in Sonoma County. Invest in AI infrastructure
+            that makes the most accessible tools available to local
+            businesses — not just enterprise customers.
+          </p>
+          <p className="mt-10 text-sm">
+            <Link
+              href="/about"
+              className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary"
+            >
+              About S-Tier &amp; Christopher Andersen →
+            </Link>
+          </p>
+        </div>
+      </Section>
+    </>
+  );
+}
+
+function PillarCard({
+  href,
+  eyebrow,
+  title,
+  body,
+}: {
+  href: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group block border-t border-foreground/20 pt-8 transition-colors hover:border-primary"
+    >
+      <p className="eyebrow mb-6">{eyebrow}</p>
+      <h2 className="font-serif text-2xl sm:text-3xl tracking-tight group-hover:text-primary transition-colors">
+        {title}
+      </h2>
+      <p className="mt-4 text-base text-foreground/75 leading-relaxed">
+        {body}
+      </p>
+      <p className="mt-6 inline-flex items-center gap-1 text-sm text-primary">
+        Learn more <span aria-hidden>→</span>
+      </p>
+    </Link>
   );
 }
