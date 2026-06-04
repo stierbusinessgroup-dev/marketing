@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { clients } from "@/lib/dashboard-data";
+import { getClients } from "@/lib/clients-db";
 import { StatusPill } from "@/components/dashboard/StatusPill";
 
 export const metadata: Metadata = { title: "Clients — Dashboard" };
+export const dynamic = "force-dynamic";
 
 function fmtMRR(n: number | null) {
   if (n === null) return "—";
@@ -22,7 +23,9 @@ function fmtDate(d: string) {
   });
 }
 
-export default function ClientsPage() {
+export default async function ClientsPage() {
+  const { rows: clients } = await getClients();
+
   return (
     <div className="px-6 sm:px-10 py-10 max-w-5xl">
       {/* Header */}

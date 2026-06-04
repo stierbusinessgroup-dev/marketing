@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { metrics, recentActivity } from "@/lib/dashboard-data";
+import { recentActivity } from "@/lib/dashboard-data";
+import { getClients, computeMetrics } from "@/lib/clients-db";
 
 export const metadata: Metadata = { title: "Overview — Dashboard" };
+export const dynamic = "force-dynamic";
 
 function fmt(n: number) {
   return new Intl.NumberFormat("en-US", {
@@ -11,7 +13,10 @@ function fmt(n: number) {
   }).format(n);
 }
 
-export default function DashboardOverviewPage() {
+export default async function DashboardOverviewPage() {
+  const { rows } = await getClients();
+  const metrics = computeMetrics(rows);
+
   return (
     <div className="px-6 sm:px-10 py-10 max-w-5xl">
       {/* Header */}
