@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
+import { MarketingShell } from "@/components/site/marketing-shell";
 
 export default function HomePage() {
   return (
-    <>
+    <MarketingShell>
       {/* Hero
          Headline candidates considered:
          1. "Business consulting and AI implementation for Sonoma County." (chosen — most direct)
@@ -88,7 +89,7 @@ export default function HomePage() {
           </p>
         </div>
       </Section>
-    </>
+    </MarketingShell>
   );
 }
 

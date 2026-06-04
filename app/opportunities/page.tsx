@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/site/section";
 import { Container } from "@/components/site/container";
+import { MarketingShell } from "@/components/site/marketing-shell";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Opportunities" };
 
 export default function OpportunitiesPage() {
   return (
-    <>
+    <MarketingShell>
       <PageHeader
         eyebrow="Opportunities"
         title="Open positions and investment opportunities."
@@ -32,6 +33,6 @@ export default function OpportunitiesPage() {
           </p>
         </div>
       </Container>
-    </>
+    </MarketingShell>
   );
 }

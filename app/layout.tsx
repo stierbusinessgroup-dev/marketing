@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Source_Serif_4, Inter, Geist_Mono } from "next/font/google";
-import { Header } from "@/components/site/header";
-import { Footer } from "@/components/site/footer";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -51,10 +49,8 @@ export default function RootLayout({
       lang="en"
       className={`${sans.variable} ${serif.variable} ${mono.variable}`}
     >
-      <body className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+      <body className="min-h-screen bg-background text-foreground antialiased">
+        {children}
       </body>
     </html>
   );

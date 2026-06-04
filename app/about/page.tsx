@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/site/section";
 import { Container } from "@/components/site/container";
+import { MarketingShell } from "@/components/site/marketing-shell";
 
 export const metadata: Metadata = { title: "About" };
 
 export default function AboutPage() {
   return (
-    <>
+    <MarketingShell>
       <PageHeader
         eyebrow="About"
         title="The firm, the operator, the mission."
@@ -61,6 +62,6 @@ export default function AboutPage() {
           </div>
         </div>
       </Container>
-    </>
+    </MarketingShell>
   );
 }

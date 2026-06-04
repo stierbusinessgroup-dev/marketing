@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/site/section";
 import { Container } from "@/components/site/container";
+import { MarketingShell } from "@/components/site/marketing-shell";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Research" };
 
 export default function ResearchPage() {
   return (
-    <>
+    <MarketingShell>
       <PageHeader
         eyebrow="Research"
         title="Daily-curated reading on AI, business, and Sonoma County."
@@ -39,6 +40,6 @@ export default function ResearchPage() {
           </p>
         </div>
       </Container>
-    </>
+    </MarketingShell>
   );
 }

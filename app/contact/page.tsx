@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/site/section";
 import { Container } from "@/components/site/container";
+import { MarketingShell } from "@/components/site/marketing-shell";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Contact" };
 
 export default function ContactPage() {
   return (
-    <>
+    <MarketingShell>
       <PageHeader
         eyebrow="Contact"
         title="Email is the best way to reach us right now."
@@ -28,6 +29,6 @@ export default function ContactPage() {
           </p>
         </div>
       </Container>
-    </>
+    </MarketingShell>
   );
 }

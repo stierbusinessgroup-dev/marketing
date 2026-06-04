@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/site/section";
 import { Container } from "@/components/site/container";
+import { MarketingShell } from "@/components/site/marketing-shell";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = { title: "The Agent" };
@@ -34,7 +35,7 @@ const tools = [
 
 export default function AgentPage() {
   return (
-    <>
+    <MarketingShell>
       <PageHeader
         eyebrow="Product"
         title="A personalized AI agent for your business."
@@ -136,6 +137,6 @@ export default function AgentPage() {
           </p>
         </section>
       </Container>
-    </>
+    </MarketingShell>
   );
 }

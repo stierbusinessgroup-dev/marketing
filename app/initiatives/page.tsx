@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/site/section";
 import { Container } from "@/components/site/container";
+import { MarketingShell } from "@/components/site/marketing-shell";
 
 export const metadata: Metadata = { title: "Initiatives" };
 
@@ -30,7 +31,7 @@ const initiatives: Initiative[] = [
 
 export default function InitiativesPage() {
   return (
-    <>
+    <MarketingShell>
       <PageHeader
         eyebrow="Initiatives"
         title="Active ventures, in portfolio."
@@ -84,6 +85,6 @@ export default function InitiativesPage() {
           </article>
         </div>
       </Container>
-    </>
+    </MarketingShell>
   );
 }

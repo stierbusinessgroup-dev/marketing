@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/site/section";
 import { Container } from "@/components/site/container";
+import { MarketingShell } from "@/components/site/marketing-shell";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Learn" };
@@ -25,7 +26,7 @@ const lessons = [
 
 export default function LearnPage() {
   return (
-    <>
+    <MarketingShell>
       <PageHeader
         eyebrow="Learn"
         title="An open notebook of how we built our agent."
@@ -73,6 +74,6 @@ export default function LearnPage() {
           </p>
         </div>
       </Container>
-    </>
+    </MarketingShell>
   );
 }

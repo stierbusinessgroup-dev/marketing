@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/site/section";
 import { Container } from "@/components/site/container";
+import { MarketingShell } from "@/components/site/marketing-shell";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Services" };
@@ -45,7 +46,7 @@ const services: Service[] = [
 
 export default function ServicesPage() {
   return (
-    <>
+    <MarketingShell>
       <PageHeader
         eyebrow="Services"
         title="Three ways we work with you."
@@ -81,6 +82,6 @@ export default function ServicesPage() {
           ))}
         </div>
       </Container>
-    </>
+    </MarketingShell>
   );
 }
