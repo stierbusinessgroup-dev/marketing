@@ -458,3 +458,293 @@ export const inventoryRows: InventoryRow[] = [
   { id: "i09", item: "Bone-In Short Rib",             par: "10 lbs",   onHand: "10 lbs", status: "OK" },
   { id: "i10", item: "Seasonal Citrus (Meyer Lemon)", par: "2 doz",    onHand: "2 doz",  status: "OK" },
 ];
+
+// ─── Scheduling ───────────────────────────────────────────────────────────────
+
+export type StaffRole =
+  | "Server"
+  | "Line Cook"
+  | "Sous Chef"
+  | "Host"
+  | "Dishwasher"
+  | "Bartender (Beer & Wine)";
+
+export type ShiftSlot = "AM" | "PM" | "Off";
+
+export type StaffMember = {
+  id: string;
+  name: string;
+  role: StaffRole;
+  hoursThisWeek: number;
+  schedule: Record<"Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat" | "Sun", ShiftSlot>;
+};
+
+export const staffRoster: StaffMember[] = [
+  {
+    id: "s01",
+    name: "Maria Delgado",
+    role: "Sous Chef",
+    hoursThisWeek: 42,
+    schedule: { Mon: "AM", Tue: "AM", Wed: "AM", Thu: "AM", Fri: "AM", Sat: "AM", Sun: "Off" },
+  },
+  {
+    id: "s02",
+    name: "Tyler Nguyen",
+    role: "Line Cook",
+    hoursThisWeek: 36,
+    schedule: { Mon: "PM", Tue: "PM", Wed: "PM", Thu: "PM", Fri: "PM", Sat: "Off", Sun: "PM" },
+  },
+  {
+    id: "s03",
+    name: "Jess Okafor",
+    role: "Line Cook",
+    hoursThisWeek: 32,
+    schedule: { Mon: "AM", Tue: "AM", Wed: "Off", Thu: "AM", Fri: "AM", Sat: "PM", Sun: "PM" },
+  },
+  {
+    id: "s04",
+    name: "Camille Broussard",
+    role: "Server",
+    hoursThisWeek: 28,
+    schedule: { Mon: "Off", Tue: "PM", Wed: "PM", Thu: "PM", Fri: "PM", Sat: "PM", Sun: "Off" },
+  },
+  {
+    id: "s05",
+    name: "Dario Meraz",
+    role: "Server",
+    hoursThisWeek: 30,
+    schedule: { Mon: "PM", Tue: "Off", Wed: "PM", Thu: "PM", Fri: "PM", Sat: "PM", Sun: "AM" },
+  },
+  {
+    id: "s06",
+    name: "Sophie Lam",
+    role: "Host",
+    hoursThisWeek: 24,
+    schedule: { Mon: "Off", Tue: "PM", Wed: "PM", Thu: "Off", Fri: "PM", Sat: "AM", Sun: "AM" },
+  },
+  {
+    id: "s07",
+    name: "Marcus Webb",
+    role: "Bartender (Beer & Wine)",
+    hoursThisWeek: 34,
+    schedule: { Mon: "PM", Tue: "PM", Wed: "Off", Thu: "PM", Fri: "PM", Sat: "PM", Sun: "PM" },
+  },
+  {
+    id: "s08",
+    name: "Rosa Ibarra",
+    role: "Dishwasher",
+    hoursThisWeek: 26,
+    schedule: { Mon: "PM", Tue: "PM", Wed: "PM", Thu: "Off", Fri: "PM", Sat: "PM", Sun: "Off" },
+  },
+];
+
+export const laborSummary = {
+  totalScheduledHrs: staffRoster.reduce((s, m) => s + m.hoursThisWeek, 0),
+  estLaborCost: staffRoster.reduce((s, m) => {
+    const rate = m.role === "Sous Chef" ? 28 : m.role === "Line Cook" ? 22 : m.role === "Bartender (Beer & Wine)" ? 20 : m.role === "Host" ? 17 : m.role === "Dishwasher" ? 16 : 18;
+    return s + m.hoursThisWeek * rate;
+  }, 0),
+  laborTargetPct: 30,
+  weeklyRevTarget: 15600,
+  openShifts: 2,
+};
+
+// ─── Reservations ─────────────────────────────────────────────────────────────
+
+export type ReservationNote = "VIP" | "Allergy" | "Anniversary" | "Birthday" | "";
+
+export type Reservation = {
+  id: string;
+  time: string;
+  name: string;
+  partySize: number;
+  note: ReservationNote;
+  noteDetail?: string;
+};
+
+export const tonightsReservations: Reservation[] = [
+  { id: "r01", time: "5:30 PM", name: "Fontaine, Marie",    partySize: 2,  note: "VIP",         noteDetail: "Regular guest — send amuse-bouche" },
+  { id: "r02", time: "5:45 PM", name: "Patel, Rohan",       partySize: 4,  note: "Allergy",     noteDetail: "Tree nuts — full table" },
+  { id: "r03", time: "6:00 PM", name: "Hernandez, Marco",   partySize: 6,  note: "",            noteDetail: "" },
+  { id: "r04", time: "6:15 PM", name: "Okafor, Yemi",       partySize: 2,  note: "Anniversary", noteDetail: "5th anniversary — dessert with candle" },
+  { id: "r05", time: "6:30 PM", name: "Takahashi, Kenji",   partySize: 3,  note: "",            noteDetail: "" },
+  { id: "r06", time: "7:00 PM", name: "Bradley, Lena",      partySize: 8,  note: "VIP",         noteDetail: "Corporate table — Drake & Associates" },
+  { id: "r07", time: "7:15 PM", name: "Nguyen, Linh",       partySize: 4,  note: "Allergy",     noteDetail: "Gluten-free — Linh only" },
+  { id: "r08", time: "7:30 PM", name: "Alvarez, Carmen",    partySize: 2,  note: "Birthday",    noteDetail: "Her 40th — complimentary galette" },
+  { id: "r09", time: "8:00 PM", name: "Kowalski, Jan",      partySize: 5,  note: "",            noteDetail: "" },
+  { id: "r10", time: "8:30 PM", name: "Reed, Harper",       partySize: 2,  note: "VIP",         noteDetail: "Press Democrat writer — treat well" },
+];
+
+export const coversSummary = {
+  lunchCovers: 0,
+  dinnerCovers: tonightsReservations.reduce((s, r) => s + r.partySize, 0),
+  walkInBuffer: 12,
+};
+
+export type WeekAheadCoversDatum = { day: string; covers: number };
+
+export const weekAheadCovers: WeekAheadCoversDatum[] = [
+  { day: "Mon", covers: 18 },
+  { day: "Tue", covers: 24 },
+  { day: "Wed", covers: 31 },
+  { day: "Thu", covers: 38 },
+  { day: "Fri (tonight)", covers: coversSummary.dinnerCovers + coversSummary.walkInBuffer },
+  { day: "Sat", covers: 74 },
+  { day: "Sun", covers: 52 },
+];
+
+// ─── Menu & Food Cost ─────────────────────────────────────────────────────────
+
+export type MenuCategory =
+  | "Starters"
+  | "Mains"
+  | "Sides"
+  | "Desserts"
+  | "Beer"
+  | "Wine";
+
+export type FoodCostBand = "good" | "watch" | "high";
+
+export type MenuItem = {
+  id: string;
+  dish: string;
+  category: MenuCategory;
+  menuPrice: number;
+  plateCost: number;
+};
+
+export const menuItems: MenuItem[] = [
+  { id: "mi01", dish: "Duck Rillettes Crostini",         category: "Starters", menuPrice: 16,  plateCost: 4.20 },
+  { id: "mi02", dish: "Porch Bruschetta",                category: "Starters", menuPrice: 13,  plateCost: 2.80 },
+  { id: "mi03", dish: "Little Gem Herb Salad",           category: "Starters", menuPrice: 14,  plateCost: 3.50 },
+  { id: "mi04", dish: "Bone-In Short Rib",               category: "Mains",   menuPrice: 42,  plateCost: 13.80 },
+  { id: "mi05", dish: "Wood-Roasted Branzino",           category: "Mains",   menuPrice: 38,  plateCost: 14.40 },
+  { id: "mi06", dish: "Summer Squash Gratin",            category: "Mains",   menuPrice: 26,  plateCost: 6.20 },
+  { id: "mi07", dish: "Roasted Fingerling Potatoes",     category: "Sides",   menuPrice: 10,  plateCost: 2.10 },
+  { id: "mi08", dish: "Stone-Fruit Galette",             category: "Desserts",menuPrice: 12,  plateCost: 3.60 },
+  { id: "mi09", dish: "Russian River Brewing IPA (pint)",category: "Beer",    menuPrice: 9,   plateCost: 2.70 },
+  { id: "mi10", dish: "Sonoma Pinot Noir (glass)",       category: "Wine",    menuPrice: 16,  plateCost: 4.80 },
+];
+
+export function foodCostPct(item: MenuItem): number {
+  return (item.plateCost / item.menuPrice) * 100;
+}
+
+export function foodCostBand(pct: number): FoodCostBand {
+  if (pct < 30) return "good";
+  if (pct <= 35) return "watch";
+  return "high";
+}
+
+export const eightySixBoard: string[] = [
+  "Wood-Roasted Branzino",
+  "Heirloom Tomato Salad (seasonal, out)",
+];
+
+export type FoodCostCategoryDatum = { category: string; avgCostPct: number };
+
+export const foodCostByCategory: FoodCostCategoryDatum[] = [
+  { category: "Starters",  avgCostPct: 22.4 },
+  { category: "Mains",     avgCostPct: 36.1 },
+  { category: "Sides",     avgCostPct: 21.0 },
+  { category: "Desserts",  avgCostPct: 30.0 },
+  { category: "Beer",      avgCostPct: 30.0 },
+  { category: "Wine",      avgCostPct: 30.0 },
+];
+
+// ─── Sales & Finances ─────────────────────────────────────────────────────────
+
+export type DailySalesDatum = { day: string; sales: number };
+
+export const dailySales: DailySalesDatum[] = [
+  { day: "Mon", sales: 1280 },
+  { day: "Tue", sales: 1640 },
+  { day: "Wed", sales: 1520 },
+  { day: "Thu", sales: 2200 },
+  { day: "Fri", sales: 2960 },
+  { day: "Sat", sales: 3280 },
+  { day: "Sun", sales: 2720 },
+];
+
+export const weeklyTotal = dailySales.reduce((s, d) => s + d.sales, 0);
+
+export type SalesCategoryDatum = { name: string; value: number };
+
+export const salesByCategory: SalesCategoryDatum[] = [
+  { name: "Food",  value: 11700 },
+  { name: "Beer",  value: 1890 },
+  { name: "Wine",  value: 2010 },
+];
+
+export const financeSnapshot = {
+  todaySales: 2960,
+  weekToDate: weeklyTotal,
+  avgCheck: 52,
+  foodCostPct: 31.2,
+  laborPct: 28.4,
+  weeklyPL: {
+    revenue: weeklyTotal,
+    foodCost: Math.round(weeklyTotal * 0.312),
+    labor: Math.round(weeklyTotal * 0.284),
+    overhead: 1400,
+    get net() {
+      return this.revenue - this.foodCost - this.labor - this.overhead;
+    },
+    get netMarginPct() {
+      return ((this.revenue - this.foodCost - this.labor - this.overhead) / this.revenue) * 100;
+    },
+  },
+};
+
+// ─── Ordering & Vendors ───────────────────────────────────────────────────────
+
+export type Vendor = {
+  id: string;
+  name: string;
+  category: string;
+  contact: string;
+  phone: string;
+  orderDay: string;
+};
+
+export const vendors: Vendor[] = [
+  { id: "v01", name: "Locally Grown Farms",     category: "Produce",          contact: "Ben Sauter",     phone: "(707) 555-0142", orderDay: "Mon & Thu" },
+  { id: "v02", name: "Bay West Protein Co.",    category: "Proteins & Dairy", contact: "Sarah Kim",      phone: "(415) 555-0381", orderDay: "Tue & Fri" },
+  { id: "v03", name: "Mendocino Beverages",     category: "Beer & Wine",      contact: "Tom Ruiz",       phone: "(707) 555-0274", orderDay: "Wednesday" },
+  { id: "v04", name: "Pacific Dry Goods",       category: "Dry Goods & Oils", contact: "Ellen Park",     phone: "(510) 555-0917", orderDay: "Monday" },
+];
+
+export type POStatus = "Draft" | "Sent" | "Delivered";
+
+export type PurchaseOrder = {
+  id: string;
+  vendorId: string;
+  vendorName: string;
+  itemCount: number;
+  total: number;
+  status: POStatus;
+  expectedDate: string;
+};
+
+export const openOrders: PurchaseOrder[] = [
+  { id: "po01", vendorId: "v01", vendorName: "Locally Grown Farms",  itemCount: 8,  total: 312,  status: "Sent",      expectedDate: "Jun 5" },
+  { id: "po02", vendorId: "v02", vendorName: "Bay West Protein Co.", itemCount: 5,  total: 640,  status: "Delivered", expectedDate: "Jun 4" },
+  { id: "po03", vendorId: "v03", vendorName: "Mendocino Beverages",  itemCount: 12, total: 870,  status: "Draft",     expectedDate: "Jun 6" },
+  { id: "po04", vendorId: "v04", vendorName: "Pacific Dry Goods",    itemCount: 6,  total: 218,  status: "Sent",      expectedDate: "Jun 5" },
+];
+
+export type ReorderSuggestion = {
+  id: string;
+  item: string;
+  onHand: string;
+  par: string;
+  suggestedQty: string;
+  vendorName: string;
+};
+
+export const reorderSuggestions: ReorderSuggestion[] = [
+  { id: "rs01", item: "Unsalted Butter",  onHand: "2 lbs",  par: "6 lbs",     suggestedQty: "8 lbs",      vendorName: "Bay West Protein Co." },
+  { id: "rs02", item: "Branzino (whole)", onHand: "0",       par: "8",         suggestedQty: "10 pieces",  vendorName: "Bay West Protein Co." },
+  { id: "rs03", item: "Herb Salad Mix",   onHand: "1 lb",   par: "3 lbs",     suggestedQty: "4 lbs",      vendorName: "Locally Grown Farms" },
+  { id: "rs04", item: "House Pickles",    onHand: "5 jars",  par: "8 jars",    suggestedQty: "6 jars",     vendorName: "Pacific Dry Goods" },
+];

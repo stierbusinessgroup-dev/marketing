@@ -14,6 +14,11 @@ import {
   X,
   ChefHat,
   Music,
+  CalendarDays,
+  CalendarCheck,
+  DollarSign,
+  Truck,
+  BookOpen,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TaskChecklist } from "@/components/dashboard/TaskChecklist";
@@ -26,6 +31,11 @@ import { ProposalsTab } from "@/components/sites/porch-demo/ProposalsTab";
 import { InventoryDonut } from "@/components/sites/porch-demo/InventoryDonut";
 import { MeetingNotesTab } from "@/components/sites/porch-demo/MeetingNotesTab";
 import { DocumentsTab } from "@/components/sites/porch-demo/DocumentsTab";
+import { SchedulingTab } from "@/components/sites/porch-demo/SchedulingTab";
+import { ReservationsTab } from "@/components/sites/porch-demo/ReservationsTab";
+import { MenuFoodCostTab } from "@/components/sites/porch-demo/MenuFoodCostTab";
+import { SalesFinancesTab } from "@/components/sites/porch-demo/SalesFinancesTab";
+import { OrderingTab } from "@/components/sites/porch-demo/OrderingTab";
 import {
   prepTasks,
   statCards,
@@ -46,20 +56,60 @@ type Tab =
   | "prep"
   | "inventory"
   | "meeting"
-  | "documents";
+  | "documents"
+  | "scheduling"
+  | "reservations"
+  | "menufoodcost"
+  | "salesfinances"
+  | "ordering";
 
-const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
-  { id: "overview",   label: "Overview",      icon: LayoutDashboard },
-  { id: "launch",     label: "Launch",        icon: Rocket },
-  { id: "marketing",  label: "Marketing",     icon: Megaphone },
-  { id: "catering",   label: "Catering",      icon: UtensilsCrossed },
-  { id: "proposals",  label: "Proposals",     icon: FileText },
-  { id: "livemusic",  label: "Live Music",    icon: Music },
-  { id: "prep",       label: "Prep & SOPs",   icon: ClipboardList },
-  { id: "inventory",  label: "Inventory",     icon: Package },
-  { id: "meeting",    label: "Meeting Notes", icon: NotebookPen },
-  { id: "documents",  label: "Documents",     icon: FileText },
+type NavItem = { id: Tab; label: string; icon: React.ElementType };
+type NavGroup = { header?: string; items: NavItem[] };
+
+const navGroups: NavGroup[] = [
+  {
+    items: [
+      { id: "overview", label: "Overview", icon: LayoutDashboard },
+    ],
+  },
+  {
+    header: "Operations",
+    items: [
+      { id: "prep",         label: "Prep & SOPs",      icon: ClipboardList },
+      { id: "menufoodcost", label: "Menu & Food Cost",  icon: BookOpen },
+      { id: "inventory",    label: "Inventory",         icon: Package },
+      { id: "ordering",     label: "Ordering",          icon: Truck },
+      { id: "scheduling",   label: "Scheduling",        icon: CalendarDays },
+      { id: "reservations", label: "Reservations",      icon: CalendarCheck },
+    ],
+  },
+  {
+    header: "Growth",
+    items: [
+      { id: "marketing",  label: "Marketing",   icon: Megaphone },
+      { id: "catering",   label: "Catering",    icon: UtensilsCrossed },
+      { id: "proposals",  label: "Proposals",   icon: FileText },
+      { id: "livemusic",  label: "Live Music",  icon: Music },
+    ],
+  },
+  {
+    header: "Business",
+    items: [
+      { id: "salesfinances", label: "Sales & Finances", icon: DollarSign },
+      { id: "launch",        label: "Launch",           icon: Rocket },
+    ],
+  },
+  {
+    header: "Meeting",
+    items: [
+      { id: "meeting",   label: "Meeting Notes", icon: NotebookPen },
+      { id: "documents", label: "Documents",     icon: FileText },
+    ],
+  },
 ];
+
+// Flat list for label lookups
+const allTabs: NavItem[] = navGroups.flatMap((g) => g.items);
 
 // ─── Inventory pill ───────────────────────────────────────────────────────────
 
@@ -233,7 +283,7 @@ export function PorchDemoShell() {
   const [activeTab, setActiveTab] = useState<Tab>("overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const activeTabLabel = tabs.find((t) => t.id === activeTab)?.label ?? "";
+  const activeTabLabel = allTabs.find((t) => t.id === activeTab)?.label ?? "";
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -254,7 +304,7 @@ export function PorchDemoShell() {
         )}
       >
         {/* Wordmark */}
-        <div className="px-6 py-6 border-b border-sidebar-border">
+        <div className="px-6 py-6 border-b border-sidebar-border shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="size-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <ChefHat className="size-4 text-primary" aria-hidden />
@@ -270,28 +320,39 @@ export function PorchDemoShell() {
           </div>
         </div>
 
-        {/* Nav */}
-        <nav className="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto" aria-label="Demo navigation">
-          {tabs.map(({ id, label, icon: Icon }) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => { setActiveTab(id); setSidebarOpen(false); }}
-              className={cn(
-                "w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors text-left",
-                activeTab === id
-                  ? "bg-accent text-accent-foreground font-medium"
-                  : "text-foreground/65 hover:bg-accent/60 hover:text-foreground"
+        {/* Grouped nav */}
+        <nav className="flex-1 px-3 py-4 overflow-y-auto space-y-5" aria-label="Demo navigation">
+          {navGroups.map((group, gi) => (
+            <div key={gi}>
+              {group.header && (
+                <p className="px-3 mb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground/50">
+                  {group.header}
+                </p>
               )}
-            >
-              <Icon className="size-4 shrink-0" aria-hidden />
-              {label}
-            </button>
+              <div className="space-y-0.5">
+                {group.items.map(({ id, label, icon: Icon }) => (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => { setActiveTab(id); setSidebarOpen(false); }}
+                    className={cn(
+                      "w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors text-left",
+                      activeTab === id
+                        ? "bg-accent text-accent-foreground font-medium"
+                        : "text-foreground/65 hover:bg-accent/60 hover:text-foreground"
+                    )}
+                  >
+                    <Icon className="size-4 shrink-0" aria-hidden />
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
           ))}
         </nav>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-sidebar-border">
+        <div className="px-6 py-4 border-t border-sidebar-border shrink-0">
           <p className="text-[10px] text-muted-foreground/50 leading-relaxed">
             Powered by Stier Business Group
           </p>
@@ -324,7 +385,7 @@ export function PorchDemoShell() {
           </button>
         </header>
 
-        {/* Preview banner — persistent on every tab (outside scroll container, always visible) */}
+        {/* Preview banner — persistent on every tab */}
         <div className="bg-amber-50 border-b border-amber-200 px-5 py-2.5 flex items-center gap-2.5 shrink-0">
           <span className="size-1.5 rounded-full bg-amber-400 shrink-0" aria-hidden />
           <p className="text-xs text-amber-800 leading-relaxed">
@@ -349,16 +410,21 @@ export function PorchDemoShell() {
             </div>
 
             {/* Tab content */}
-            {activeTab === "overview"   && <OverviewSection />}
-            {activeTab === "launch"     && <LaunchTab />}
-            {activeTab === "marketing"  && <MarketingTab />}
-            {activeTab === "catering"   && <CateringTab />}
-            {activeTab === "proposals"  && <ProposalsTab />}
-            {activeTab === "livemusic"  && <LiveMusicTab />}
-            {activeTab === "prep"       && <PrepSection />}
-            {activeTab === "inventory"  && <InventorySection />}
-            {activeTab === "meeting"    && <MeetingNotesTab />}
-            {activeTab === "documents"  && <DocumentsTab />}
+            {activeTab === "overview"      && <OverviewSection />}
+            {activeTab === "launch"        && <LaunchTab />}
+            {activeTab === "marketing"     && <MarketingTab />}
+            {activeTab === "catering"      && <CateringTab />}
+            {activeTab === "proposals"     && <ProposalsTab />}
+            {activeTab === "livemusic"     && <LiveMusicTab />}
+            {activeTab === "prep"          && <PrepSection />}
+            {activeTab === "inventory"     && <InventorySection />}
+            {activeTab === "meeting"       && <MeetingNotesTab />}
+            {activeTab === "documents"     && <DocumentsTab />}
+            {activeTab === "scheduling"    && <SchedulingTab />}
+            {activeTab === "reservations"  && <ReservationsTab />}
+            {activeTab === "menufoodcost"  && <MenuFoodCostTab />}
+            {activeTab === "salesfinances" && <SalesFinancesTab />}
+            {activeTab === "ordering"      && <OrderingTab />}
           </div>
         </main>
       </div>
