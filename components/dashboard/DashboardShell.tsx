@@ -10,6 +10,7 @@ import {
   BookOpen,
   Menu,
   X,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { site } from "@/lib/site";
@@ -24,6 +25,20 @@ const nav = [
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  async function handleSignOut() {
+    try {
+      const { createClient, isSupabaseConfigured } = await import(
+        "@/lib/supabase/client"
+      );
+      if (isSupabaseConfigured()) {
+        const supabase = await createClient();
+        await supabase.auth.signOut();
+      }
+    } finally {
+      window.location.href = "/login";
+    }
+  }
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -83,8 +98,16 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         </nav>
 
         {/* Footer */}
-        <div className="px-6 py-5 border-t border-sidebar-border">
-          <p className="text-xs text-muted-foreground/60">{site.name}</p>
+        <div className="px-3 py-4 border-t border-sidebar-border">
+          <button
+            type="button"
+            onClick={handleSignOut}
+            className="flex w-full items-center gap-3 px-3 py-2 rounded-md text-sm text-foreground/65 hover:bg-accent/60 hover:text-foreground transition-colors"
+          >
+            <LogOut className="size-4 shrink-0" aria-hidden />
+            Sign out
+          </button>
+          <p className="px-3 mt-3 text-xs text-muted-foreground/60">{site.name}</p>
         </div>
       </aside>
 
