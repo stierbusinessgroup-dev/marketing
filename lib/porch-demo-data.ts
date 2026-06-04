@@ -38,21 +38,21 @@ export type InventoryRow = {
 
 export const statCards: StatCard[] = [
   {
-    eyebrow: "Tonight's Covers",
-    value: "48",
-    subtext: "Reservations confirmed",
-    highlight: false,
+    eyebrow: "Days to Open",
+    value: "14",
+    subtext: "Dining room opens June 18",
+    highlight: true,
   },
   {
     eyebrow: "Par Items Low",
     value: "3",
     subtext: "Needs attention before service",
-    highlight: true,
+    highlight: false,
   },
   {
-    eyebrow: "Open Prep Tasks",
-    value: "5 / 12",
-    subtext: "7 completed today",
+    eyebrow: "Open Launch Tasks",
+    value: "7 / 12",
+    subtext: "5 completed, 7 remaining",
     highlight: false,
   },
 ];
@@ -67,22 +67,147 @@ export const agentActivity: AgentActivity[] = [
   {
     id: "a2",
     time: "8:42 pm",
-    message: "Logged: 86'd the branzino — sold out during dinner service",
+    message: "Grand-opening announcement drafted and queued for your review",
     type: "log",
   },
   {
     id: "a3",
     time: "Yesterday 4:07 pm",
-    message: "Prep note saved: hollandaise breaks after 90 min — flagged for chef review",
+    message: "Catering inquiry logged: Harvest Winery dinner, Sept 20, ~60 guests",
     type: "info",
   },
   {
     id: "a4",
     time: "Yesterday 11:30 am",
-    message: "Inventory count recorded: walk-in audit complete, duck confit at par",
+    message: "Beer & wine list finalized — 8 wines, 6 local craft beers noted",
     type: "log",
   },
+  {
+    id: "a5",
+    time: "Yesterday 9:00 am",
+    message: "Press Democrat feature pitch sent — awaiting response",
+    type: "info",
+  },
 ];
+
+// ─── Weekly covers (Mon–Sun) ──────────────────────────────────────────────────
+
+export type WeeklyBarDatum = { day: string; covers: number };
+
+export const weeklyCovers: WeeklyBarDatum[] = [
+  { day: "Mon", covers: 32 },
+  { day: "Tue", covers: 41 },
+  { day: "Wed", covers: 38 },
+  { day: "Thu", covers: 55 },
+  { day: "Fri", covers: 74 },
+  { day: "Sat", covers: 82 },
+  { day: "Sun", covers: 68 },
+];
+
+// ─── Weekly revenue ───────────────────────────────────────────────────────────
+
+export type WeeklyLineDatum = { day: string; revenue: number };
+
+export const weeklyRevenue: WeeklyLineDatum[] = [
+  { day: "Mon", revenue: 1280 },
+  { day: "Tue", revenue: 1640 },
+  { day: "Wed", revenue: 1520 },
+  { day: "Thu", revenue: 2200 },
+  { day: "Fri", revenue: 2960 },
+  { day: "Sat", revenue: 3280 },
+  { day: "Sun", revenue: 2720 },
+];
+
+// ─── Launch milestones ────────────────────────────────────────────────────────
+
+export type MilestoneCategory = "Kitchen" | "Front of House" | "Marketing" | "Permits & Admin";
+
+export type Milestone = {
+  id: string;
+  category: MilestoneCategory;
+  label: string;
+  done: boolean;
+};
+
+export const milestones: Milestone[] = [
+  // Kitchen
+  { id: "m01", category: "Kitchen", label: "Finalize dinner menu", done: true },
+  { id: "m02", category: "Kitchen", label: "Line equipment check complete", done: true },
+  { id: "m03", category: "Kitchen", label: "Prep schedule built and posted", done: false },
+
+  // Front of House
+  { id: "m04", category: "Front of House", label: "Hire 3 servers", done: false },
+  { id: "m05", category: "Front of House", label: "POS system training complete", done: true },
+  { id: "m06", category: "Front of House", label: "Beer & wine list finalized", done: true },
+  { id: "m07", category: "Front of House", label: "Table layout set and measured", done: false },
+
+  // Marketing
+  { id: "m08", category: "Marketing", label: "Grand-opening announcement published", done: false },
+  { id: "m09", category: "Marketing", label: "Mailing-list invite sent", done: false },
+
+  // Permits & Admin
+  { id: "m10", category: "Permits & Admin", label: "Health permit final inspection", done: true },
+  { id: "m11", category: "Permits & Admin", label: "Beer & wine license confirmed", done: true },
+  { id: "m12", category: "Permits & Admin", label: "Signage installed", done: false },
+];
+
+// ─── Marketing kanban ─────────────────────────────────────────────────────────
+
+export type KanbanColumn = "Ideas" | "Planned" | "In Progress" | "Live";
+
+export type KanbanCard = {
+  id: string;
+  column: KanbanColumn;
+  title: string;
+  tag: string;
+  dueChip?: string;
+};
+
+export const kanbanCards: KanbanCard[] = [
+  // Ideas
+  { id: "k01", column: "Ideas", title: "Beer & wine pairing nights", tag: "Events" },
+  { id: "k02", column: "Ideas", title: "Loyalty punch card program", tag: "Retention" },
+  { id: "k03", column: "Ideas", title: "Local farm collab dinner series", tag: "Community" },
+
+  // Planned
+  { id: "k04", column: "Planned", title: "Grand-opening IG teaser series", tag: "Social", dueChip: "Jun 14" },
+  { id: "k05", column: "Planned", title: "Email blast to mailing list", tag: "Email", dueChip: "Jun 16" },
+
+  // In Progress
+  { id: "k06", column: "In Progress", title: "Press Democrat feature pitch", tag: "PR", dueChip: "Jun 10" },
+  { id: "k07", column: "In Progress", title: "Google Business profile refresh", tag: "Local SEO" },
+
+  // Live
+  { id: "k08", column: "Live", title: "Opening-week prix fixe announced", tag: "Menu" },
+];
+
+// ─── Catering ─────────────────────────────────────────────────────────────────
+
+export type CateringStatus = "Inquiry" | "Confirmed" | "Complete";
+
+export type CateringEvent = {
+  id: string;
+  date: string;
+  client: string;
+  headcount: number;
+  status: CateringStatus;
+  revenue: number;
+};
+
+export const cateringEvents: CateringEvent[] = [
+  { id: "c01", date: "Jun 22", client: "Harvest Moon Winery",   headcount: 60,  status: "Confirmed", revenue: 4800 },
+  { id: "c02", date: "Jul 11", client: "Redwood Credit Union",  headcount: 35,  status: "Confirmed", revenue: 2800 },
+  { id: "c03", date: "Aug 3",  client: "Hernandez Wedding Rehearsal", headcount: 45, status: "Inquiry", revenue: 3600 },
+  { id: "c04", date: "Sep 13", client: "Sebastopol Community Fund Gala", headcount: 90, status: "Inquiry", revenue: 7200 },
+  { id: "c05", date: "Oct 4",  client: "Private Birthday — Fontaine", headcount: 20, status: "Complete", revenue: 1600 },
+];
+
+export type CateringBarDatum = { client: string; revenue: number };
+
+export const cateringBarData: CateringBarDatum[] = cateringEvents.map((e) => ({
+  client: e.client.split(" ").slice(0, 2).join(" "),
+  revenue: e.revenue,
+}));
 
 // ─── Prep & SOPs ──────────────────────────────────────────────────────────────
 
@@ -103,14 +228,14 @@ export const prepTasks: PrepTaskItem[] = [
 // ─── Inventory ────────────────────────────────────────────────────────────────
 
 export const inventoryRows: InventoryRow[] = [
-  { id: "i01", item: "Duck Confit (portions)",     par: "12",      onHand: "12",    status: "OK" },
-  { id: "i02", item: "Unsalted Butter",            par: "6 lbs",   onHand: "2 lbs", status: "Low" },
-  { id: "i03", item: "Heirloom Tomatoes",          par: "10 lbs",  onHand: "8 lbs", status: "OK" },
-  { id: "i04", item: "House Pickles (qt jars)",    par: "8",       onHand: "5",     status: "Low" },
-  { id: "i05", item: "Sourdough Levain",           par: "4 loaves",onHand: "4 loaves", status: "OK" },
-  { id: "i06", item: "Branzino (whole, 1 lb)",     par: "8",       onHand: "0",     status: "Critical" },
-  { id: "i07", item: "Heavy Cream",                par: "2 qt",    onHand: "2 qt",  status: "OK" },
-  { id: "i08", item: "Herb Salad Mix",             par: "3 lbs",   onHand: "1 lb",  status: "Low" },
-  { id: "i09", item: "Bone-In Short Rib",          par: "10 lbs",  onHand: "10 lbs",status: "OK" },
-  { id: "i10", item: "Seasonal Citrus (Meyer Lemon)", par: "2 doz", onHand: "2 doz", status: "OK" },
+  { id: "i01", item: "Duck Confit (portions)",        par: "12",       onHand: "12",     status: "OK" },
+  { id: "i02", item: "Unsalted Butter",               par: "6 lbs",    onHand: "2 lbs",  status: "Low" },
+  { id: "i03", item: "Heirloom Tomatoes",             par: "10 lbs",   onHand: "8 lbs",  status: "OK" },
+  { id: "i04", item: "House Pickles (qt jars)",       par: "8",        onHand: "5",      status: "Low" },
+  { id: "i05", item: "Sourdough Levain",              par: "4 loaves", onHand: "4 loaves", status: "OK" },
+  { id: "i06", item: "Branzino (whole, 1 lb)",        par: "8",        onHand: "0",      status: "Critical" },
+  { id: "i07", item: "Heavy Cream",                   par: "2 qt",     onHand: "2 qt",   status: "OK" },
+  { id: "i08", item: "Herb Salad Mix",                par: "3 lbs",    onHand: "1 lb",   status: "Low" },
+  { id: "i09", item: "Bone-In Short Rib",             par: "10 lbs",   onHand: "10 lbs", status: "OK" },
+  { id: "i10", item: "Seasonal Citrus (Meyer Lemon)", par: "2 doz",    onHand: "2 doz",  status: "OK" },
 ];
