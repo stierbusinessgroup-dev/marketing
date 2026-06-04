@@ -47,7 +47,7 @@ export default function PorchKitchenSite() {
 
       {/* ===== TOP ANNOUNCEMENT BAR ===== */}
       <div className="pk-topbar">
-        🌿 <strong>Now open for Lunch &amp; Dinner</strong> in Sebastopol &nbsp;&middot;&nbsp; Tue–Sun &nbsp;&middot;&nbsp; Reservations &amp; online ordering available
+        🌿 <strong>Now open for Lunch &amp; Dinner</strong> in Sebastopol · Tue–Sun · Reservations &amp; online ordering available
       </div>
 
       {/* ===== HEADER ===== */}
