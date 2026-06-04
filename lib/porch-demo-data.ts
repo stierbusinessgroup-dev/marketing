@@ -225,6 +225,225 @@ export const prepTasks: PrepTaskItem[] = [
   { id: "e4", group: "EOD Close", label: "Cash drawer reconciled", done: false },
 ];
 
+// ─── Live Music ───────────────────────────────────────────────────────────────
+
+export type MusicActStatus = "Inquiry" | "Held" | "Confirmed" | "Played";
+
+export type MusicAct = {
+  id: string;
+  act: string;
+  genre: string;
+  contact: string;
+  date: string;
+  fee: number;
+  status: MusicActStatus;
+  recurring?: boolean;
+  note?: string;
+};
+
+export const musicActs: MusicAct[] = [
+  {
+    id: "mu01",
+    act: "Kevin Boisset Trio",
+    genre: "Jazz-funk",
+    contact: "Kevin Boisset",
+    date: "Jun 20",
+    fee: 0,
+    status: "Confirmed",
+    recurring: true,
+    note: "House act — recurring monthly residency",
+  },
+  {
+    id: "mu02",
+    act: "Sebastopol Sessions",
+    genre: "Open jazz jam",
+    contact: "Dario Meraz",
+    date: "Jun 27",
+    fee: 150,
+    status: "Confirmed",
+    recurring: true,
+    note: "Weekly Thursday jam — beer & wine pairing flight runs all night",
+  },
+  {
+    id: "mu03",
+    act: "Russian River Ramblers",
+    genre: "Bluegrass",
+    contact: "Pam Okello",
+    date: "Jul 11",
+    fee: 300,
+    status: "Confirmed",
+  },
+  {
+    id: "mu04",
+    act: "Sage & Vine",
+    genre: "Folk duo",
+    contact: "Claire Hagen",
+    date: "Jul 19",
+    fee: 250,
+    status: "Held",
+  },
+  {
+    id: "mu05",
+    act: "Lia Rose",
+    genre: "Indie folk",
+    contact: "Lia Rose",
+    date: "Jun 14",
+    fee: 200,
+    status: "Played",
+  },
+  {
+    id: "mu06",
+    act: "Marqui & the Moonlight",
+    genre: "Soul / R&B",
+    contact: "Marqui Delacroix",
+    date: "Aug 2",
+    fee: 400,
+    status: "Inquiry",
+  },
+  {
+    id: "mu07",
+    act: "The Gravenstein Stomp",
+    genre: "Americana",
+    contact: "Reed Halverson",
+    date: "Aug 16",
+    fee: 350,
+    status: "Inquiry",
+  },
+];
+
+export type MusicBookingDatum = { month: string; bookings: number };
+
+export const musicBookingsByMonth: MusicBookingDatum[] = [
+  { month: "Mar", bookings: 2 },
+  { month: "Apr", bookings: 3 },
+  { month: "May", bookings: 4 },
+  { month: "Jun", bookings: 5 },
+  { month: "Jul", bookings: 4 },
+  { month: "Aug", bookings: 3 },
+];
+
+// ─── Proposals ────────────────────────────────────────────────────────────────
+
+export type ProposalStatus = "Draft" | "Sent" | "Accepted" | "Declined";
+
+export type Proposal = {
+  id: string;
+  event: string;
+  client: string;
+  date: string;
+  guests: number;
+  value: number;
+  status: ProposalStatus;
+};
+
+export const proposals: Proposal[] = [
+  {
+    id: "pr01",
+    event: "Harvest Winery Vineyard Dinner",
+    client: "Harvest Moon Winery",
+    date: "Sep 6",
+    guests: 60,
+    value: 6840,
+    status: "Accepted",
+  },
+  {
+    id: "pr02",
+    event: "Fontaine Private Birthday",
+    client: "Marie Fontaine",
+    date: "Jun 28",
+    guests: 22,
+    value: 2090,
+    status: "Sent",
+  },
+  {
+    id: "pr03",
+    event: "Sebastopol Community Fund Gala",
+    client: "SCF Board",
+    date: "Oct 11",
+    guests: 90,
+    value: 9450,
+    status: "Sent",
+  },
+  {
+    id: "pr04",
+    event: "Redwood Credit Union Team Lunch",
+    client: "RCU HR Dept.",
+    date: "Jul 19",
+    guests: 35,
+    value: 2625,
+    status: "Draft",
+  },
+  {
+    id: "pr05",
+    event: "Hernandez Wedding Rehearsal Dinner",
+    client: "Marco Hernandez",
+    date: "Aug 23",
+    guests: 45,
+    value: 4140,
+    status: "Declined",
+  },
+];
+
+export type ProposalMenuItem = {
+  category: string;
+  item: string;
+};
+
+export type ProposalLineItem = {
+  description: string;
+  unitLabel: string;
+  units: number;
+  ratePerUnit: number;
+};
+
+export type SampleProposal = {
+  id: string;
+  event: string;
+  client: string;
+  contactName: string;
+  eventDate: string;
+  guests: number;
+  preparedBy: string;
+  preparedDate: string;
+  menu: ProposalMenuItem[];
+  lineItems: ProposalLineItem[];
+  servicePct: number;
+  footer: string;
+};
+
+export const sampleProposal: SampleProposal = {
+  id: "pr01",
+  event: "Harvest Winery Vineyard Dinner",
+  client: "Harvest Moon Winery",
+  contactName: "Dana Okafor, Events Director",
+  eventDate: "Saturday, September 6, 2025 — 6:00 PM",
+  guests: 60,
+  preparedBy: "Kevin Boisset, The Porch Kitchen",
+  preparedDate: "June 4, 2025",
+  menu: [
+    { category: "Reception Bites", item: "Porch bruschetta — heirloom tomato, basil oil, grilled levain" },
+    { category: "Reception Bites", item: "Duck rillettes crostini with fig mostarda" },
+    { category: "Salad (family-style)", item: "Little gem & herb salad, champagne vinaigrette, shaved Dry Jack" },
+    { category: "Mains (family-style)", item: "Slow-braised bone-in short rib, natural jus" },
+    { category: "Mains (family-style)", item: "Wood-roasted branzino, Meyer lemon salsa verde" },
+    { category: "Mains (family-style)", item: "Summer squash gratin with Gruyère & fresh thyme" },
+    { category: "Sides", item: "Crusty sourdough with cultured butter" },
+    { category: "Sides", item: "Roasted fingerling potatoes, herb chimichurri" },
+    { category: "Beer & Wine Pairing", item: "3 wines (Sonoma County whites & reds) — curated by The Porch" },
+    { category: "Beer & Wine Pairing", item: "2 local craft beers — Bear Republic & Russian River Brewing" },
+    { category: "Dessert", item: "Seasonal stone-fruit galette, crème fraîche" },
+  ],
+  lineItems: [
+    { description: "Food — per person", unitLabel: "guest", units: 60, ratePerUnit: 85 },
+    { description: "Beer & wine pairing — per person", unitLabel: "guest", units: 60, ratePerUnit: 22 },
+    { description: "Staffing (4 servers, 1 chef)", unitLabel: "staff-hours", units: 20, ratePerUnit: 28 },
+    { description: "Equipment rental & linen", unitLabel: "flat", units: 1, ratePerUnit: 400 },
+  ],
+  servicePct: 18,
+  footer:
+    "Proposal valid for 14 days. A 50% deposit confirms the date. Remaining balance due 7 days prior to event. Beer & wine only — no spirits service. Menu subject to seasonal availability.",
+};
+
 // ─── Inventory ────────────────────────────────────────────────────────────────
 
 export const inventoryRows: InventoryRow[] = [

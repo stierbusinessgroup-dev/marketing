@@ -13,6 +13,7 @@ import {
   Menu,
   X,
   ChefHat,
+  Music,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TaskChecklist } from "@/components/dashboard/TaskChecklist";
@@ -20,6 +21,8 @@ import { OverviewCharts } from "@/components/sites/porch-demo/OverviewCharts";
 import { LaunchTab } from "@/components/sites/porch-demo/LaunchTab";
 import { MarketingTab } from "@/components/sites/porch-demo/MarketingTab";
 import { CateringTab } from "@/components/sites/porch-demo/CateringTab";
+import { LiveMusicTab } from "@/components/sites/porch-demo/LiveMusicTab";
+import { ProposalsTab } from "@/components/sites/porch-demo/ProposalsTab";
 import { InventoryDonut } from "@/components/sites/porch-demo/InventoryDonut";
 import { MeetingNotesTab } from "@/components/sites/porch-demo/MeetingNotesTab";
 import { DocumentsTab } from "@/components/sites/porch-demo/DocumentsTab";
@@ -38,20 +41,24 @@ type Tab =
   | "launch"
   | "marketing"
   | "catering"
+  | "proposals"
+  | "livemusic"
   | "prep"
   | "inventory"
   | "meeting"
   | "documents";
 
 const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
-  { id: "overview",  label: "Overview",      icon: LayoutDashboard },
-  { id: "launch",    label: "Launch",        icon: Rocket },
-  { id: "marketing", label: "Marketing",     icon: Megaphone },
-  { id: "catering",  label: "Catering",      icon: UtensilsCrossed },
-  { id: "prep",      label: "Prep & SOPs",   icon: ClipboardList },
-  { id: "inventory", label: "Inventory",     icon: Package },
-  { id: "meeting",   label: "Meeting Notes", icon: NotebookPen },
-  { id: "documents", label: "Documents",     icon: FileText },
+  { id: "overview",   label: "Overview",      icon: LayoutDashboard },
+  { id: "launch",     label: "Launch",        icon: Rocket },
+  { id: "marketing",  label: "Marketing",     icon: Megaphone },
+  { id: "catering",   label: "Catering",      icon: UtensilsCrossed },
+  { id: "proposals",  label: "Proposals",     icon: FileText },
+  { id: "livemusic",  label: "Live Music",    icon: Music },
+  { id: "prep",       label: "Prep & SOPs",   icon: ClipboardList },
+  { id: "inventory",  label: "Inventory",     icon: Package },
+  { id: "meeting",    label: "Meeting Notes", icon: NotebookPen },
+  { id: "documents",  label: "Documents",     icon: FileText },
 ];
 
 // ─── Inventory pill ───────────────────────────────────────────────────────────
@@ -342,14 +349,16 @@ export function PorchDemoShell() {
             </div>
 
             {/* Tab content */}
-            {activeTab === "overview"  && <OverviewSection />}
-            {activeTab === "launch"    && <LaunchTab />}
-            {activeTab === "marketing" && <MarketingTab />}
-            {activeTab === "catering"  && <CateringTab />}
-            {activeTab === "prep"      && <PrepSection />}
-            {activeTab === "inventory" && <InventorySection />}
-            {activeTab === "meeting"   && <MeetingNotesTab />}
-            {activeTab === "documents" && <DocumentsTab />}
+            {activeTab === "overview"   && <OverviewSection />}
+            {activeTab === "launch"     && <LaunchTab />}
+            {activeTab === "marketing"  && <MarketingTab />}
+            {activeTab === "catering"   && <CateringTab />}
+            {activeTab === "proposals"  && <ProposalsTab />}
+            {activeTab === "livemusic"  && <LiveMusicTab />}
+            {activeTab === "prep"       && <PrepSection />}
+            {activeTab === "inventory"  && <InventorySection />}
+            {activeTab === "meeting"    && <MeetingNotesTab />}
+            {activeTab === "documents"  && <DocumentsTab />}
           </div>
         </main>
       </div>
