@@ -14,6 +14,7 @@ import {
   X,
   ChefHat,
   Music,
+  Calendar,
   CalendarDays,
   CalendarCheck,
   DollarSign,
@@ -31,6 +32,7 @@ import { ProposalsTab } from "@/components/sites/porch-demo/ProposalsTab";
 import { InventoryDonut } from "@/components/sites/porch-demo/InventoryDonut";
 import { MeetingNotesTab } from "@/components/sites/porch-demo/MeetingNotesTab";
 import { DocumentsTab } from "@/components/sites/porch-demo/DocumentsTab";
+import { CalendarTab } from "@/components/sites/porch-demo/CalendarTab";
 import { SchedulingTab } from "@/components/sites/porch-demo/SchedulingTab";
 import { ReservationsTab } from "@/components/sites/porch-demo/ReservationsTab";
 import { MenuFoodCostTab } from "@/components/sites/porch-demo/MenuFoodCostTab";
@@ -57,6 +59,7 @@ type Tab =
   | "inventory"
   | "meeting"
   | "documents"
+  | "calendar"
   | "scheduling"
   | "reservations"
   | "menufoodcost"
@@ -75,7 +78,8 @@ const navGroups: NavGroup[] = [
   {
     header: "Operations",
     items: [
-      { id: "prep",         label: "Prep & SOPs",      icon: ClipboardList },
+      { id: "calendar",     label: "Calendar",          icon: Calendar },
+      { id: "prep",         label: "Prep & SOPs",       icon: ClipboardList },
       { id: "menufoodcost", label: "Menu & Food Cost",  icon: BookOpen },
       { id: "inventory",    label: "Inventory",         icon: Package },
       { id: "ordering",     label: "Ordering",          icon: Truck },
@@ -420,6 +424,7 @@ export function PorchDemoShell() {
             {activeTab === "inventory"     && <InventorySection />}
             {activeTab === "meeting"       && <MeetingNotesTab />}
             {activeTab === "documents"     && <DocumentsTab />}
+            {activeTab === "calendar"      && <CalendarTab />}
             {activeTab === "scheduling"    && <SchedulingTab />}
             {activeTab === "reservations"  && <ReservationsTab />}
             {activeTab === "menufoodcost"  && <MenuFoodCostTab />}

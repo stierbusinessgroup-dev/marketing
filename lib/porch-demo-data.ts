@@ -748,3 +748,52 @@ export const reorderSuggestions: ReorderSuggestion[] = [
   { id: "rs03", item: "Herb Salad Mix",   onHand: "1 lb",   par: "3 lbs",     suggestedQty: "4 lbs",      vendorName: "Locally Grown Farms" },
   { id: "rs04", item: "House Pickles",    onHand: "5 jars",  par: "8 jars",    suggestedQty: "6 jars",     vendorName: "Pacific Dry Goods" },
 ];
+
+// ─── Calendar / Month Events ──────────────────────────────────────────────────
+
+export type CalendarEventType =
+  | "reservation"
+  | "catering"
+  | "music"
+  | "staff"
+  | "milestone";
+
+export type CalendarEvent = {
+  id: string;
+  day: number;           // day of June 2026 (1–30)
+  type: CalendarEventType;
+  title: string;
+  time?: string;
+};
+
+export const monthEvents: CalendarEvent[] = [
+  // ── Staff / prep days ─────────────────────────────────────────────────────
+  { id: "ce01", day: 8,  type: "staff",       title: "All-hands kitchen prep day" },
+  { id: "ce02", day: 15, type: "staff",       title: "Pre-opening dry run (full service)" },
+  { id: "ce03", day: 17, type: "staff",       title: "Final setup & walk-through" },
+
+  // ── Milestone — Dining Room Opening ───────────────────────────────────────
+  { id: "ce04", day: 18, type: "milestone",   title: "Dining Room Opens", time: "5:00 PM" },
+
+  // ── Music nights (from musicActs, June only) ───────────────────────────────
+  { id: "ce05", day: 14, type: "music",       title: "Lia Rose", time: "7:00 PM" },
+  { id: "ce06", day: 20, type: "music",       title: "Kevin Boisset Trio", time: "7:00 PM" },
+  { id: "ce07", day: 27, type: "music",       title: "Sebastopol Sessions", time: "7:00 PM" },
+
+  // ── Catering events (June only from cateringEvents) ───────────────────────
+  { id: "ce08", day: 22, type: "catering",    title: "Harvest Moon Winery Dinner", time: "6:00 PM" },
+
+  // ── Large-party reservations ───────────────────────────────────────────────
+  { id: "ce09", day: 18, type: "reservation", title: "Opening night — full house",  time: "5:30 PM" },
+  { id: "ce10", day: 19, type: "reservation", title: "Party of 14 — Chen family",   time: "7:00 PM" },
+  { id: "ce11", day: 20, type: "reservation", title: "Corporate table — Drake & Co.", time: "7:30 PM" },
+  { id: "ce12", day: 21, type: "reservation", title: "Party of 12 — Okafor reunion", time: "6:30 PM" },
+  { id: "ce13", day: 25, type: "reservation", title: "Birthday party — Alvarez, 10", time: "7:00 PM" },
+  { id: "ce14", day: 27, type: "reservation", title: "Anniversary dinner — Patel x2", time: "6:00 PM" },
+  { id: "ce15", day: 28, type: "reservation", title: "Fontaine private party — 22",   time: "7:30 PM" },
+
+  // ── Marketing / launch events ──────────────────────────────────────────────
+  { id: "ce16", day: 10, type: "staff",       title: "Press Democrat feature deadline" },
+  { id: "ce17", day: 14, type: "staff",       title: "IG teaser series goes live" },
+  { id: "ce18", day: 16, type: "staff",       title: "Email blast to mailing list" },
+];
