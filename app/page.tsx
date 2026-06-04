@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
 import { MarketingShell } from "@/components/site/marketing-shell";
+import { site } from "@/lib/site";
 
 export default function HomePage() {
   return (
@@ -67,6 +68,50 @@ export default function HomePage() {
             title="Initiatives"
             body="Active ventures we operate or invest in — currently AI-integrated work in traditional industries."
           />
+        </div>
+      </Section>
+
+      {/* Foundational pricing callout */}
+      <Section bordered>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div>
+            <p className="eyebrow mb-6">Foundational plan</p>
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl leading-[1.1] tracking-tight">
+              Everything you need to get AI working in your business.
+            </h2>
+          </div>
+          <div>
+            <div className="flex items-baseline gap-3 flex-wrap">
+              <span className="font-serif text-5xl tracking-tight text-foreground">
+                $250
+                <span className="text-xl font-sans font-normal text-foreground/60">
+                  /mo
+                </span>
+              </span>
+              <span className="text-sm text-muted-foreground line-through">
+                $500/mo
+              </span>
+            </div>
+            <p className="mt-4 text-base text-foreground/75 leading-relaxed max-w-sm">
+              Founding-member price — locked for life — for the first 10 Sonoma
+              County businesses to sign up. Includes onboarding, custom AI tool
+              creation, training, implementation, and ongoing consulting.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-6">
+              <Link
+                href={`mailto:${site.email}?subject=Foundational%20plan%20inquiry`}
+                className="inline-block rounded-none border border-primary bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+              >
+                Get started
+              </Link>
+              <Link
+                href="/services"
+                className="text-sm text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary"
+              >
+                See what is included →
+              </Link>
+            </div>
+          </div>
         </div>
       </Section>
 
