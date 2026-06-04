@@ -9,6 +9,7 @@ import {
   ClipboardList,
   Package,
   NotebookPen,
+  FileText,
   Menu,
   X,
   ChefHat,
@@ -21,6 +22,7 @@ import { MarketingTab } from "@/components/sites/porch-demo/MarketingTab";
 import { CateringTab } from "@/components/sites/porch-demo/CateringTab";
 import { InventoryDonut } from "@/components/sites/porch-demo/InventoryDonut";
 import { MeetingNotesTab } from "@/components/sites/porch-demo/MeetingNotesTab";
+import { DocumentsTab } from "@/components/sites/porch-demo/DocumentsTab";
 import {
   prepTasks,
   statCards,
@@ -38,7 +40,8 @@ type Tab =
   | "catering"
   | "prep"
   | "inventory"
-  | "meeting";
+  | "meeting"
+  | "documents";
 
 const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
   { id: "overview",  label: "Overview",      icon: LayoutDashboard },
@@ -48,6 +51,7 @@ const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
   { id: "prep",      label: "Prep & SOPs",   icon: ClipboardList },
   { id: "inventory", label: "Inventory",     icon: Package },
   { id: "meeting",   label: "Meeting Notes", icon: NotebookPen },
+  { id: "documents", label: "Documents",     icon: FileText },
 ];
 
 // ─── Inventory pill ───────────────────────────────────────────────────────────
@@ -345,6 +349,7 @@ export function PorchDemoShell() {
             {activeTab === "prep"      && <PrepSection />}
             {activeTab === "inventory" && <InventorySection />}
             {activeTab === "meeting"   && <MeetingNotesTab />}
+            {activeTab === "documents" && <DocumentsTab />}
           </div>
         </main>
       </div>
