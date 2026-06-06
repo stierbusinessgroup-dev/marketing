@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { listGroups } from "@/lib/porch-groups";
-import { GroupManagerClient } from "@/components/sites/porch-social/GroupManagerClient";
+import { MarketingHub } from "@/components/sites/porch-social/MarketingHub";
 
 export const metadata: Metadata = {
   title: "Facebook Group Manager — The Porch Kitchen",
@@ -24,5 +24,5 @@ export default async function PorchSocialPage({ params }: Props) {
   }
 
   const groups = await listGroups();
-  return <GroupManagerClient initialGroups={groups} />;
+  return <MarketingHub initialGroups={groups} />;
 }

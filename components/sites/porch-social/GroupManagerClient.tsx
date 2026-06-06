@@ -3,7 +3,6 @@
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
-  ChefHat,
   Users,
   ExternalLink,
   Check,
@@ -373,7 +372,7 @@ type ModalState =
   | { kind: "edit"; group: PorchGroup }
   | null;
 
-export function GroupManagerClient({ initialGroups }: { initialGroups: PorchGroup[] }) {
+export function GroupsTab({ initialGroups }: { initialGroups: PorchGroup[] }) {
   const router = useRouter();
   const [editKey, setEditKey] = useState<string | null>(null);
   const [modal, setModal] = useState<ModalState>(null);
@@ -428,69 +427,52 @@ export function GroupManagerClient({ initialGroups }: { initialGroups: PorchGrou
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Brand header */}
-      <header className="border-b border-border bg-card/40">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-6 py-6 sm:px-10">
-          <div className="flex items-center gap-3">
-            <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-              <ChefHat className="size-5 text-primary" aria-hidden />
-            </div>
-            <div>
-              <p className="font-serif text-lg leading-tight tracking-tight text-foreground">
-                The Porch Kitchen
-              </p>
-              <p className="eyebrow text-muted-foreground/70">Facebook Group Manager</p>
-            </div>
-          </div>
-
+    <>
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="font-serif text-3xl tracking-tight sm:text-4xl">
+            Your Facebook groups
+          </h1>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            Every group you post to, with its member reach, specific posting rules,
+            and a direct link. Check the requirements before you post.
+          </p>
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
           {canEdit ? (
-            <button
-              type="button"
-              onClick={lock}
-              className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted"
-            >
-              <Lock className="size-3.5" />
-              Done editing
-            </button>
+            <>
+              <button
+                type="button"
+                onClick={() => {
+                  setFormError(null);
+                  setModal({ kind: "add" });
+                }}
+                className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                <Plus className="size-4" />
+                Add group
+              </button>
+              <button
+                type="button"
+                onClick={lock}
+                className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-2.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted"
+              >
+                <Lock className="size-3.5" />
+                Done
+              </button>
+            </>
           ) : (
             <button
               type="button"
               onClick={() => setModal({ kind: "unlock" })}
-              className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted"
+              className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-2.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted"
             >
               <KeyRound className="size-3.5" />
               Edit
             </button>
           )}
         </div>
-      </header>
-
-      <main className="mx-auto max-w-5xl px-6 py-10 sm:px-10">
-        <div className="mb-8 flex items-end justify-between gap-4">
-          <div>
-            <h1 className="font-serif text-3xl tracking-tight sm:text-4xl">
-              Your Facebook groups
-            </h1>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              Every group you post to, with its member reach, specific posting rules,
-              and a direct link. Check the requirements before you post.
-            </p>
-          </div>
-          {canEdit && (
-            <button
-              type="button"
-              onClick={() => {
-                setFormError(null);
-                setModal({ kind: "add" });
-              }}
-              className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-            >
-              <Plus className="size-4" />
-              Add group
-            </button>
-          )}
-        </div>
+      </div>
 
         {/* Summary stats */}
         <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -549,14 +531,6 @@ export function GroupManagerClient({ initialGroups }: { initialGroups: PorchGrou
           </div>
         )}
 
-        {/* Footer */}
-        <div className="mt-12 border-t border-border pt-5">
-          <p className="text-[10px] leading-relaxed text-muted-foreground/50">
-            Powered by Stier Business Group
-          </p>
-        </div>
-      </main>
-
       {/* Modals */}
       {modal?.kind === "unlock" && (
         <UnlockModal onClose={() => setModal(null)} onUnlock={unlock} />
@@ -582,6 +556,6 @@ export function GroupManagerClient({ initialGroups }: { initialGroups: PorchGrou
           />
         </Modal>
       )}
-    </div>
+    </>
   );
 }
